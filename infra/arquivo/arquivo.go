@@ -3,7 +3,9 @@ package arquivo
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
+	"strings"
 )
 
 func AbrirArquivo() (os.File, error) {
@@ -15,14 +17,28 @@ func AbrirArquivo() (os.File, error) {
 		os.Exit(-1)
 	}
 
-	LerArquivo(*arquivo)
+	numeroDeLinhasParaLer := 5
+
+	LerArquivo(*arquivo, numeroDeLinhasParaLer)
 
 	return *arquivo, err
 
 }
 
-func LerArquivo(arquivo os.File) {
-	leitura := bufio.NewReader(&arquivo)
+func LerArquivo(arquivo os.File, numeroDeLinhasParaLer int) {
 
-	fmt.Println(leitura.ReadString('\n'))
+	leitor := bufio.NewReader(&arquivo)
+
+	for {
+		linha, err := leitor.ReadString('\n')
+		linha = strings.TrimSpace(linha)
+
+		fmt.Println(linha)
+
+		if err == io.EOF {
+			break
+		}
+	}
+
+	arquivo.Close()
 }

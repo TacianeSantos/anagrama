@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"anagrama/domain/anagrama"
+	"anagrama/infra/arquivo"
 )
 
 func main() {
@@ -23,7 +24,7 @@ func main() {
 
 	case 2:
 		fmt.Println("Você escolheu: Palavra aleatória")
-		// chamar rotina do arquivo
+		arquivo.AbrirArquivo()
 
 	default:
 		fmt.Println("Desculpa, mas desconheço essa opção")
