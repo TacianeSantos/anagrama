@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	"anagrama/domain/anagrama"
 )
 
 func main() {
@@ -11,10 +13,13 @@ func main() {
 
 	opcao := opcaoDeEscolha()
 
+	var palavra string
+
 	switch opcao {
 	case 1:
-
 		fmt.Println("Você escolheu: Digitar uma nova palavra")
+		fmt.Print("A palavra é:")
+		fmt.Scan(&palavra)
 
 	case 2:
 		fmt.Println("Você escolheu: Palavra aleatória")
@@ -23,6 +28,8 @@ func main() {
 	default:
 		fmt.Println("Desculpa, mas desconheço essa opção")
 	}
+
+	anagrama.CalculaAnagrama(palavra)
 }
 
 func menuOrigemPalavra() {
