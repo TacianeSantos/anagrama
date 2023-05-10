@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func AbrirArquivo() (os.File, error) {
+func abrirArquivo() (os.File, error) {
 	arquivo, err := os.Open("palavras.txt")
 
 	if err != nil {
@@ -17,23 +17,22 @@ func AbrirArquivo() (os.File, error) {
 		os.Exit(-1)
 	}
 
-	numeroDeLinhasParaLer := 5
-
-	LerArquivo(*arquivo, numeroDeLinhasParaLer)
-
 	return *arquivo, err
 
 }
 
-func LerArquivo(arquivo os.File, numeroDeLinhasParaLer int) {
+func LerPalavraDoArquivo(numeroDeLinhasParaLer int) []string {
 
+	arquivo, _ := abrirArquivo()
 	leitor := bufio.NewReader(&arquivo)
 
-	for {
+	var palavras []string
+
+	for i := 0; i < numeroDeLinhasParaLer; i++ {
 		linha, err := leitor.ReadString('\n')
 		linha = strings.TrimSpace(linha)
 
-		fmt.Println(linha)
+		palavras = append(palavras, linha)
 
 		if err == io.EOF {
 			break
@@ -41,4 +40,6 @@ func LerArquivo(arquivo os.File, numeroDeLinhasParaLer int) {
 	}
 
 	arquivo.Close()
+
+	return palavras
 }

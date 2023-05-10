@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 
-	"anagrama/domain/anagrama"
 	"anagrama/infra/arquivo"
 )
 
@@ -14,23 +13,29 @@ func main() {
 
 	opcao := opcaoDeEscolha()
 
-	var palavra string
+	var palavras []string
 
 	switch opcao {
 	case 1:
+		var palavra string
 		fmt.Println("Você escolheu: Digitar uma nova palavra")
 		fmt.Print("A palavra é:")
 		fmt.Scan(&palavra)
 
+		palavras = append(palavras, palavra)
+
 	case 2:
 		fmt.Println("Você escolheu: Palavra aleatória")
-		arquivo.AbrirArquivo()
+		qtdePalavra := 1
+
+		palavras = arquivo.LerPalavraDoArquivo(qtdePalavra)
 
 	default:
 		fmt.Println("Desculpa, mas desconheço essa opção")
 	}
 
-	anagrama.CalculaAnagrama(palavra)
+	fmt.Println(palavras)
+	// anagrama.CalculaAnagrama(palavra)
 }
 
 func menuOrigemPalavra() {
